@@ -48,11 +48,13 @@ def monster_encounter():
 
 def magic_attack(enemy_HP, enemy):
     colors = ['pink', 'red', 'blue', 'green', 'black']
-    damage = random.randint(0, 100)
+    damage = random.randint(20, 100)
     print_pause("You focus your pyschic energy and shoot out an orb of " +
                 random.choice(colors) + ' sparks.\nIt collides with the '
                 + enemy + " and does " + str(damage) + " damage.")
     enemy_HP = enemy_HP - damage
+    if enemy_HP < 0:
+        enemy_HP = 0
     print_pause("The " + enemy + " has " + str(enemy_HP) + " health left!")
     return enemy_HP
 
