@@ -5,7 +5,7 @@ import inquirer
 
 def print_pause(message_to_print):
     print(message_to_print)
-    time.sleep(0)
+    time.sleep(2)
 
 
 def intro():
@@ -60,21 +60,24 @@ def magic_attack(enemy_HP, enemy):
 
 
 def strength_attack(enemy_HP, enemy):
-    damage = random.randint(0, 100)
+    damage = random.randint(20, 100)
     print_pause("You jump forward and attack the " + enemy +
                 " with your sword."
                 "\nIt does " + str(damage) + " damage.")
     enemy_HP = enemy_HP - damage
+    if enemy_HP < 0:
+        enemy_HP = 0
     print_pause("The " + enemy + " has " + str(enemy_HP) + " health left!")
     return enemy_HP
 
 
-def monster_attack(enemy):
+def monster_attack(enemy, player_HP):
     damage = random.randint(0, 50)
     print_pause("The " + enemy + " rushes forward and attacks you!\n"
                 "It does " + str(damage) + " damage")
-    player_HP = 100
     player_HP = player_HP - damage
+    if player_HP < 0:
+        player_HP = 0
     print_pause("You now have " + str(player_HP) + " health left.")
     return player_HP
 
@@ -107,7 +110,7 @@ def fight(choice, enemy):
     player_HP = 100
     enemy_HP = 100
     while player_HP > 0:
-        player_HP = monster_attack(enemy)
+        player_HP = monster_attack(enemy, player_HP)
         if player_HP > 0:
             result = action(choice, enemy_HP, enemy, player_HP)
             enemy_HP, player_HP = result
